@@ -1,5 +1,3 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 void main() {
 
     int currentPosition = 50; //default position of the dial is 50, we use current to change it easily
@@ -42,8 +40,7 @@ void main() {
         System.out.println("error while reading the file");
         e.printStackTrace();
     }
+
     System.out.println("occurences of Zero : " + occurencesOfZero);
-
-
 
 }
