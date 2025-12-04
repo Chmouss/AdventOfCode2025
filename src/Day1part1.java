@@ -28,7 +28,9 @@ void main() {
             if(currentLine[0] == 'R'){ //R, increment
                 currentPosition = (currentPosition + currentNumberToAdd) % maxPosition;
             } else { //L, decrement
-                currentPosition = (currentPosition - currentNumberToAdd) % maxPosition;
+                currentPosition = (currentPosition - currentNumberToAdd); //% maxPosition;
+                while (currentPosition < 0)
+                    currentPosition = currentPosition + 100;
             }
 
             if(currentPosition == 0)
