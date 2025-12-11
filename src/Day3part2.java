@@ -20,7 +20,32 @@ public class Day3part2 {
                 char[] currentLine = data.toCharArray(); //recup content line en char array
                 int currentLineSize = currentLine.length; //recup taille pour operations
 
-                //
+                StringBuilder stringBuilder = new StringBuilder();
+
+                int maxRange = 11; // last numbers of the line
+                int currentBiggest = 0; //current biggest
+                int indiceCurrentBiggest = 0;
+
+                //mettre tout dans un while => tant que maxRange != 0 ? mettre +1 pour le indice current biggest sinon meme number pris
+
+                for (int i = indiceCurrentBiggest; i < currentLineSize - maxRange; i++) {
+                    //for easy manipulation (cant compare char with int etc)
+                    int currentCharacterNumericValue = Character.getNumericValue(currentLine[i]);
+
+                    if(currentCharacterNumericValue > currentBiggest){
+                        currentBiggest = currentCharacterNumericValue;
+                        indiceCurrentBiggest = i;
+                        //i = indiceCurrentBiggest + 1; // A TESTER mais pas besoin de cette ligne ici pour le moment, plus bas maybe
+                    }
+
+//                    //faux pour le moment, on a besoin du plus grand dans toute la ligne
+//                    if(currentCharacterNumericValue > currentBiggest){
+//                        currentBiggest = currentCharacterNumericValue;
+//                        stringBuilder.append(currentBiggest);
+//                        //i = currentLineSize
+//                        maxRange--;
+//                    }
+                }
 
 
 
