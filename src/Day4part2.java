@@ -37,6 +37,8 @@ public class Day4part2 {
             //cad qui ont MOINS DE 4 papiers autour d'eux (8 positions autour de la position actuelle dans la matrice)
             // on parcourt toute la matrice, quand on trouve un '@', ou check les 8 caracteres autour, si total inferieur a 4 => easyaccess
 
+            //ajout variable pour savoir si on peut encore enlever du papier, reset variable a chaque iteration
+            //si on trouve du papier, on remet a true
             boolean canStillRemovePapers = true;
             while(canStillRemovePapers) {
                 canStillRemovePapers = false;
