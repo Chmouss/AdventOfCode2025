@@ -17,38 +17,112 @@ public class Day6part2 {
             String line4 = fileReader.nextLine();
             String line5 = fileReader.nextLine();
 
-            //split the lines to only get the numbers (can be N amount of blank spaces so we remove them with the regex)
-            String[] lines1split = line1.split("\\D+"); // =>  \\D+ can work aswell but not for line 5
-            String[] lines2split = line2.split("\\s+");
-            String[] lines3split = line3.split("\\s+");
-            String[] lines4split = line4.split("\\s+");
-            String[] lines5split = line5.split("\\s+");
-
+            //split every line in char arrays
+            char[] lines1split = line1.toCharArray();
+            char[] lines2split = line2.toCharArray();
+            char[] lines3split = line3.toCharArray();
+            char[] lines4split = line4.toCharArray();
+            char[] lines5split = line5.toCharArray();
 
             long totalValue = 0; //sum totalValue for the problem
-            int count = 0; // count to have a track of i during the iteration on the arrays as we dont know how many arrays we have.
 
-            //split each line in numbers or "graphical characters" for the line 5 and either sum up or multiply everything and add to the result
-            for (String strings: lines1split){
-                long n1 = Long.parseLong(lines1split[count]);
-                long n2 = Long.parseLong(lines2split[count]);
-                long n3 = Long.parseLong(lines3split[count]);
-                long n4 = Long.parseLong(lines4split[count]);
-                char mathSign = (lines5split[count].charAt(0));
+            String n1 = "", n2 = "", n3 = "", n4 = "";
+            int count = 0;
+            char mathSign = 'a';
 
-                long result = 0;
-                if(mathSign == '+'){
-                    result = n1 + n2 + n3 + n4;
-                } else { //mathsign == '*'
-                    result = n1 * n2 * n3 * n4;
+            for (int i = 0; i < lines1split.length; i++) {
+                //if the whole vertical line is blank, we reset all the strings and the count
+                if((lines1split[i] == ' ' && lines2split[i] == ' ' && lines3split[i] == ' ' && lines4split[i] == ' ' && lines5split[i] == ' ') ||
+                    (i == lines1split.length -1)){
+
+                    long n1ToAdd = 0, n2ToAdd = 0, n3ToAdd = 0, n4ToAdd = 0;
+                    if (!n1.isEmpty()) n1ToAdd = Long.parseLong(n1);
+                    if (!n2.isEmpty()) n2ToAdd = Long.parseLong(n2);
+                    if (!n3.isEmpty()) n3ToAdd = Long.parseLong(n3);
+                    if (!n4.isEmpty()) n4ToAdd = Long.parseLong(n4);
+
+                    long result = 0;
+                    if(mathSign == '+'){
+                        if(n1ToAdd > 0) result += n1ToAdd;
+                        if(n2ToAdd > 0) result += n2ToAdd;
+                        if(n3ToAdd > 0) result += n3ToAdd;
+                        if(n4ToAdd > 0) result += n4ToAdd;
+
+                    } else { //mathsign == '*'
+                        result = 1; // avoid multiplying by zero
+                        if (n1ToAdd > 0) result *= n1ToAdd;
+                        if (n2ToAdd > 0) result *= n2ToAdd;
+                        if (n3ToAdd > 0) result *= n3ToAdd;
+                        if (n4ToAdd > 0) result *= n4ToAdd;
+                    }
+                    totalValue += result;
+
+                    //reset count and numbers after we did the calculations
+                    n1 = ""; n2 = ""; n3 = ""; n4 = "";
+                    count = 0;
+                } else {
+
+                    if(lines5split[i] == '+' || lines5split[i] == '*')
+                        mathSign = lines5split[i];
+
+                    switch (count){
+                        case 0:
+                            if(Character.getNumericValue(lines1split[i]) != -1)
+                                n4 += Character.getNumericValue(lines1split[i]);
+                            if(Character.getNumericValue(lines2split[i]) != -1)
+                                n4 += Character.getNumericValue(lines2split[i]);
+                            if(Character.getNumericValue(lines3split[i]) != -1)
+                                n4 += Character.getNumericValue(lines3split[i]);
+                            if(Character.getNumericValue(lines4split[i]) != -1)
+                                n4 += Character.getNumericValue(lines4split[i]);
+
+                            //n4 += "" + n1ToAdd + n2ToAdd + n3ToAdd + n4ToAdd;
+                            System.out.println(n4);
+                            break;
+                        case 1:
+                            if(Character.getNumericValue(lines1split[i]) != -1)
+                                n3 += Character.getNumericValue(lines1split[i]);
+                            if(Character.getNumericValue(lines2split[i]) != -1)
+                                n3 += Character.getNumericValue(lines2split[i]);
+                            if(Character.getNumericValue(lines3split[i]) != -1)
+                                n3 += Character.getNumericValue(lines3split[i]);
+                            if(Character.getNumericValue(lines4split[i]) != -1)
+                                n3 += Character.getNumericValue(lines4split[i]);
+                            //n3 += "" + n1ToAdd + n2ToAdd + n3ToAdd + n4ToAdd;
+                            System.out.println(n3);
+                            break;
+                        case 2:
+                            if(Character.getNumericValue(lines1split[i]) != -1)
+                                n2 += Character.getNumericValue(lines1split[i]);
+                            if(Character.getNumericValue(lines2split[i]) != -1)
+                                n2 += Character.getNumericValue(lines2split[i]);
+                            if(Character.getNumericValue(lines3split[i]) != -1)
+                                n2 += Character.getNumericValue(lines3split[i]);
+                            if(Character.getNumericValue(lines4split[i]) != -1)
+                                n2 += Character.getNumericValue(lines4split[i]);
+                            //n2 += "" + n1ToAdd + n2ToAdd + n3ToAdd + n4ToAdd;
+                            System.out.println(n2);
+                            break;
+                        case 3:
+                            if(Character.getNumericValue(lines1split[i]) != -1)
+                                n1 += Character.getNumericValue(lines1split[i]);
+                            if(Character.getNumericValue(lines2split[i]) != -1)
+                                n1 += Character.getNumericValue(lines2split[i]);
+                            if(Character.getNumericValue(lines3split[i]) != -1)
+                                n1 += Character.getNumericValue(lines3split[i]);
+                            if(Character.getNumericValue(lines4split[i]) != -1)
+                                n1 += Character.getNumericValue(lines4split[i]);
+                            //n1 += "" + n1ToAdd + n2ToAdd + n3ToAdd + n4ToAdd;
+                            System.out.println(n1);
+                            break;
+                    }
+                    count++;
+
                 }
-                totalValue += result;
-                count++;
             }
             System.out.println(totalValue);
 
-        } catch (
-                FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("error while reading the file");
             e.printStackTrace();
         }
